@@ -50,8 +50,6 @@ services:
     volumes:
       - 'mariadb:/var/lib/mysql'
       - ./docker/mariadb:/docker-entrypoint-initdb.d
-    healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
   mailhog:
     image: 'mailhog/mailhog:latest'
     ports:
