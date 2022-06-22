@@ -23,7 +23,7 @@ services:
     networks:
       - laravel
     depends_on:
-      - pgsql
+      - mariadb
   adminer:
     image: adminer
     ports:
