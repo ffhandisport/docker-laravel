@@ -63,5 +63,5 @@ networks:
   laravel:
     driver: bridge
 volumes:
-  pgsql:
+  mariadb:
     driver: local
