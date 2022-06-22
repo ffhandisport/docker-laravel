@@ -10,8 +10,8 @@
 
 - HTTP server Nginx 1.20
 - PHP 8.1
-- Node 16
-- Database PostgreSQL 14
+- Node 17
+- Database MariaDB
 
 ## 📖 Install Laravel
 
@@ -22,9 +22,9 @@ Many commands are in `Makefile` file. Example `start`, `stop`, `build` and [many
 - **⚠️ Modify** environnement file `.env` create by Laravel installer with this :
 
 ```bash
-DB_CONNECTION=pgsql
-DB_HOST=pgsql
-DB_PORT=5432
+DB_CONNECTION=mysql
+DB_HOST=mariadb
+DB_PORT=3306
 DB_DATABASE=Change this
 DB_USERNAME=Change this
 DB_PASSWORD=Change this

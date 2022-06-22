@@ -28,33 +28,30 @@ services:
     image: adminer
     ports:
       - 8080:8080
-    networks:
-      - laravel
     environment:
-      ADMINER_DEFAULT_SERVER: 'pgsql'
-      ADMINER_DEFAULT_TYPE: 'postgresql'
+      ADMINER_DEFAULT_SERVER: 'mariadb'
+      ADMINER_DEFAULT_TYPE: 'mysql'
     depends_on:
-      - pgsql
+      - mariadb
   node:
-    image: node:16
+    image: node:17
     volumes:
         - './:/app/'
     working_dir: '/app/'
-  pgsql:
-    image: postgres:14
+  mariadb:
+    image: mariadb:10.7
     ports:
-      - '${FORWARD_DB_PORT:-5432}:5432'
+      - '${DB_PORT:-3306}:3306'
     environment:
-      PGPASSWORD: '${DB_PASSWORD:-secret}'
-      POSTGRES_DB: '${DB_DATABASE:-laravel}'
-      POSTGRES_USER: '${DB_USERNAME:-laravel}'
-      POSTGRES_PASSWORD: '${DB_PASSWORD:-secret}'
+      MARIADB_ROOT_PASSWORD: '${DB_ROOT_PASSWORD:-root}'
+      MARIADB_DATABASE: '${DB_DATABASE}'
+      MARIADB_USER: '${DB_USERNAME}'
+      MARIADB_PASSWORD: '${DB_PASSWORD}'
     volumes:
-      - 'pgsql:/var/lib/postgresql/data'
-    networks:
-      - laravel
+      - 'mariadb:/var/lib/mysql'
+      - ./docker/mariadb:/docker-entrypoint-initdb.d
     healthcheck:
-      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE:-laravel}", "-U", "${DB_USERNAME:-laravel}" ]
+      test: [ "CMD", "pg_isready", "-q", "-d", "${DB_DATABASE}", "-U", "${DB_USERNAME}" ]
   mailhog:
     image: 'mailhog/mailhog:latest'
     ports:
