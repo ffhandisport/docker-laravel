@@ -52,6 +52,9 @@ laravel-cache:
 laravel-storage:
 	docker-compose run --rm php php artisan storage:link
 
+optimize:
+	docker-compose exec php php artisan optimize
+
 pull:
 	docker-compose -f docker-compose-production.yml pull
 
